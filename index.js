@@ -3,9 +3,9 @@ morgan = require('morgan'),
 fs = require('fs'),
 path = require('path');
 
-app.use(express.static('public'));
-
 const app = express();
+
+app.use(express.static('public'));
 
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'})
 
