@@ -78,3 +78,8 @@ Timestamp: Sat Sep 10 2022 19:40:22 GMT-0500 (Central Daylight Time)
 ::1 - - [27/Sep/2022:00:43:13 +0000] "DELETE /users/1/Shrek HTTP/1.1" 200 42 "-" "PostmanRuntime/7.29.2"
 ::1 - - [27/Sep/2022:00:48:56 +0000] "DELETE /id/2 HTTP/1.1" 404 146 "-" "PostmanRuntime/7.29.2"
 ::1 - - [27/Sep/2022:00:49:22 +0000] "DELETE /users/2 HTTP/1.1" 200 23 "-" "PostmanRuntime/7.29.2"
+::1 - - [27/Sep/2022:02:16:15 +0000] "POST /users HTTP/1.1" 201 82 "-" "PostmanRuntime/7.29.2"
+::1 - - [27/Sep/2022:02:16:22 +0000] "PUT /users/1 HTTP/1.1" 200 65 "-" "PostmanRuntime/7.29.2"
+::1 - - [27/Sep/2022:02:20:18 +0000] "POST /users/2/Shrek HTTP/1.1" 200 38 "-" "PostmanRuntime/7.29.2"
+::1 - - [27/Sep/2022:02:24:55 +0000] "DELETE /users/1/Shrek HTTP/1.1" 200 42 "-" "PostmanRuntime/7.29.2"
+::1 - - [27/Sep/2022:02:25:47 +0000] "DELETE /users/2 HTTP/1.1" 200 23 "-" "PostmanRuntime/7.29.2"
