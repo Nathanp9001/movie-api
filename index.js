@@ -60,7 +60,7 @@ app.use(morgan('combined', {stream: accessLogStream}));
 
 //READ Get all users *
 app.get('/users', (req, res) => {
-  users.find()
+  Users.find()
   .then((users) => {
     res.status(201).json(users);
   })
@@ -72,7 +72,7 @@ app.get('/users', (req, res) => {
 
 //READ Get a user by username *
 app.get('/users/:Username', (req, res) => {
-  users.findOne({ Username: req.params.Username })
+  Users.findOne({ Username: req.params.Username })
   .then((user) => {
     res.json(user);
   })
@@ -84,12 +84,12 @@ app.get('/users/:Username', (req, res) => {
 
 // CREATE Add new user
 app.post('/users', (req, res) => {
-users.findOne({ Username: req.body.Username })
+Users.findOne({ Username: req.body.Username })
 .then((user) => {
   if (user) {
     return res.status(400).send(req.body.Username + 'already exists');
   } else {
-    users
+    Users
     .create({
       Username: req.body.Username,
       Password: req.body.Password,
@@ -111,7 +111,7 @@ users.findOne({ Username: req.body.Username })
 
 // UPDATE Edit user details
 app.put('/users/:Username', (req, res) => {
-  users.findOneAndUpdate({ Username: req.params.Username }, { $set:
+  Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
   {
     Username: req.body.Username,
     Password: req.body.Password,
@@ -132,7 +132,7 @@ app.put('/users/:Username', (req, res) => {
 
   // CREATE User add movie to list of favorites
 app.post('/users/:Username/movies/:MovieID', (req, res) => {
-  users.findOneAndUpdate({ Username: req.params.Username }, {
+  Users.findOneAndUpdate({ Username: req.params.Username }, {
     $push: { FavoriteMovies: req.params.MovieID }
   },
   { new: true }, 
@@ -148,7 +148,7 @@ app.post('/users/:Username/movies/:MovieID', (req, res) => {
 
   // DELETE User remove movie from list of favorites
   app.delete('/users/:Username/movies/:MovieID', (req, res) => {
-    users.findOneAndUpdate({ Username: req.params.Username }, {
+    Users.findOneAndUpdate({ Username: req.params.Username }, {
       $pull: { FavoriteMovies: req.params.MovieID }
     },
     { new: true }, 
@@ -163,8 +163,8 @@ app.post('/users/:Username/movies/:MovieID', (req, res) => {
     });
 
   // DELETE Delete user account
-app.delete('/users/Username', (req, res) => {
- users.findOneAndRemove({ Username: req.params.Username })
+app.delete('/users/:Username', (req, res) => {
+ Users.findOneAndRemove({ Username: req.params.Username })
  .then((user) => {
   if (!user) {
     res.status(400).send(req.params.Username + ' was not found');
