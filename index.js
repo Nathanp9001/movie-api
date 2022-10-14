@@ -10,7 +10,7 @@ const Models = require('./models.js');
 const Movies = Models.Movie;
 const Users = Models.User;
 
-mongoose.connect('mongodb://localhost:27017/dbname', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
 const app = express();
 
@@ -178,45 +178,52 @@ app.delete('/users/Username', (req, res) => {
  });
 });
 
-// READ Get list of all movies (*)
+// READ Get list of all movies 
 app.get('/movies', (req, res) => {
-  res.status(200).json(movies);
+  Movies.find()
+  .then((movies) => {
+    res.status(201).json(movies);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
 });
 
-// READ Get info about a movie by title (*)
+// READ Get info about a movie by title 
 app.get('/movies/:title', (req, res) => {
-  const { title } = req.params;
-  const movie = movies.find(movie => movie.Title === title);
-
-  if (movie) {
+  Movies.findOne({ Title: req.params.title})
+  .then((movie) => {
     res.status(200).json(movie);
-  } else {
-    res.status(400).send('no such movie')
-  }
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
 });
 
-// READ Get info about genre (*)
-app.get('/movies/genre/:genreName', (req, res) => {
-  const { genreName } = req.params;
-  const genre = movies.find(movie => movie.Genre.Name === genreName).Genre;
-
-  if (genre) {
-    res.status(200).json(genre);
-  } else {
-    res.status(400).send('no such genre')
-  }
+// READ Get info about genre
+app.get('/movies/genres/:Name', (req, res) => {
+  Movies.findOne({ 'Genre.Name': req.params.Name})
+  .then((movies) => {
+    res.send(movies.Genre);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
 });
 
-// READ Get info about director (*)
-app.get('/movies/director/:directorName', (req, res) => {
-  const { directorName } = req.params;
-  const director = movies.find(movie => movie.Director.Name === directorName).Director;
-
-  if (director) {
-    res.status(200).json(director);
-  } else {
-    res.status(400).send('no such director')
-  }
+// READ Get info about director
+app.get('/movies/directors/:Name', (req, res) => {
+  Movies.findOne({'Director.Name': req.params.Name})
+  .then((movies) => {
+    res.send(movies.Director);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
 });
 
 
