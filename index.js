@@ -14,49 +14,22 @@ mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, 
 
 const app = express();
 
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+let auth = require('./auth')(app);
+const passport = require('passport');
+require('./passport');
 
 app.use(express.static('public'));
 
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'})
 
-let users = [
-  {
-    id: '1',
-    name: 'Bryce',
-    favoriteMovies: ['Shrek']
-  },
-  {
-    id: '2',
-    name: 'Martha',
-    favoriteMovies: ['Sonic the Hedgehog']
-  }
-]
-
-let movies = [
-  {
-    Title: 'Shrek',
-    Genre: {
-      Name: 'Comedy',
-      Description: 'Comedy is a genre of film in which the main emphasis is on humour.'
-  },
-  Director: {
-    Name: 'Andrew Adamson',
-    Born: '1966',
-    Death: 'N/A'
-  }
-},
-  {
-    Title: 'It (2017)',
-    Genre: 'Horror'
-  },
-  {
-    Title: 'Sonic the Hedgehog',
-    Genre: 'Action'
-  }
-];
-
 app.use(morgan('combined', {stream: accessLogStream}));
+
+// URL ENDPOINTS 
+
+
 
 //READ Get all users *
 app.get('/users', (req, res) => {
@@ -179,7 +152,7 @@ app.delete('/users/:Username', (req, res) => {
 });
 
 // READ Get list of all movies 
-app.get('/movies', (req, res) => {
+app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.find()
   .then((movies) => {
     res.status(201).json(movies);
