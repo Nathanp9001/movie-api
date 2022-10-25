@@ -30,8 +30,8 @@ app.use(morgan('combined', {stream: accessLogStream}));
 
 
 
-//READ Get all users *
-app.get('/users', (req, res) => {
+//READ Get all users 
+app.get('/users', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.find()
   .then((users) => {
     res.status(201).json(users);
@@ -42,8 +42,8 @@ app.get('/users', (req, res) => {
   });
 });
 
-//READ Get a user by username *
-app.get('/users/:Username', (req, res) => {
+//READ Get a user by username 
+app.get('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOne({ Username: req.params.Username })
   .then((user) => {
     res.json(user);
