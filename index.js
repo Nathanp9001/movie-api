@@ -10,7 +10,7 @@ const Models = require('./models.js');
 const Movies = Models.Movie;
 const Users = Models.User;
 
-mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb:https://myflixdb9001.herokuapp.com/', { useNewUrlParser: true, useUnifiedTopology: true });
 
 const app = express();
 
@@ -262,3 +262,12 @@ const port = process.env.PORT || 8080;
 app.listen(port, '0.0.0.0',() => {
  console.log('Listening on Port ' + port);
 });
+
+/*
+
+mongoimport --uri mongodb+srv://myFlixDBadmin:adminflix8487@myflixdb.gvd1ypq.mongodb.net/myFlixDB --collection movies --type json --file ../../movies.json
+
+
+mongosh "mongodb+srv://myflixdb.gvd1ypq.mongodb.net/myFlixDB" --apiVersion 1 --username myFlixDBadmin
+
+*/
