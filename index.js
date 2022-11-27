@@ -17,7 +17,7 @@ const app = express();
 app.use(bodyParser.json());
 
 const cors = require('cors');
-let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+let allowedOrigins = ['http://localhost:8080', 'http://testsite.com', 'http://localhost:1234'];
 
 const bcrypt = require('bcrypt');
 
