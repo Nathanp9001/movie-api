@@ -4,8 +4,9 @@
 services:
   - type: web # valid values: https://render.com/docs/yaml-spec#type
     name: myflixdb9001
-    env: docker # valid values: https://render.com/docs/yaml-spec#environment
-    dockerfilePath: Dockerfile.render
+    env: node # valid values: https://render.com/docs/yaml-spec#environment
+    buildCommand: npm install # possibly include && npm build
+    startCommand: node index.js
     plan: free # optional; defaults to starter
     envVars:
       - key: CONNECTION_URI # Imported from Heroku app
