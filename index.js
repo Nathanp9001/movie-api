@@ -17,7 +17,7 @@ const app = express();
 app.use(bodyParser.json());
 
 const cors = require('cors');
-let allowedOrigins = ['http://localhost:8080', 'http://testsite.com', 'http://localhost:1234'];
+let allowedOrigins = ['http://localhost:8080', 'http://testsite.com', 'http://localhost:1234', 'myflix-nathanp9001.netlify.app'];
 
 const bcrypt = require('bcrypt');
 
