@@ -10,7 +10,7 @@ const Models = require('./models.js');
 const Movies = Models.Movie;
 const Users = Models.User;
 
-mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect( process.env.CONNECTION_URI || 'mongodb+srv://myFlixDBadmin:adminflix8487@myflixdb.gvd1ypq.mongodb.net/myFlixDB?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
 
 const app = express();
 
@@ -22,7 +22,8 @@ let allowedOrigins = [
   'http://testsite.com',
   'http://localhost:1234',
   'https://myflix-nathanp9001.netlify.app',
-  'http://localhost:4200'
+  'http://localhost:4200',
+  'https://nathanp9001.github.io/myFlix-Angular-client/welcome',
   ];
 
 const bcrypt = require('bcrypt');
