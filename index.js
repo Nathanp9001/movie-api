@@ -24,6 +24,7 @@ let allowedOrigins = [
   'https://myflix-nathanp9001.netlify.app',
   'http://localhost:4200',
   'https://nathanp9001.github.io/myFlix-Angular-client/welcome',
+  'https://nathanp9001.github.io/myFlix-Angular-client',
   ];
 
 const bcrypt = require('bcrypt');
